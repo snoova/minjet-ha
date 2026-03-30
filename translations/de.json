@@ -1,0 +1,47 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Minjet verbinden",
+        "description": "Geben Sie Ihre Minjet-Zugangsdaten ein. Die WebSocket-Verbindung ermoeglicht schnellere Live-Daten, kann jedoch mit der offiziellen App interferieren.",
+        "data": {
+          "username": "Benutzername",
+          "password": "Passwort",
+          "enable_websocket": "WebSocket Live-Updates aktivieren",
+          "scan_interval": "REST-Abfrageintervall (Sekunden)"
+        }
+      },
+      "reconfigure": {
+        "title": "Minjet neu konfigurieren",
+        "description": "Aktualisieren Sie Ihre Zugangsdaten oder die WebSocket-Einstellung.",
+        "data": {
+          "username": "Benutzername",
+          "password": "Passwort",
+          "enable_websocket": "WebSocket Live-Updates aktivieren",
+          "scan_interval": "REST-Abfrageintervall (Sekunden)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Ungueltige Zugangsdaten",
+      "cannot_connect": "Verbindung fehlgeschlagen",
+      "unknown": "Unerwarteter Fehler"
+    },
+    "abort": {
+      "already_configured": "Dieses Konto ist bereits konfiguriert",
+      "reconfigure_successful": "Neu-Konfiguration erfolgreich"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Minjet Optionen",
+        "description": "Einstellungen fuer Live-Daten anpassen.",
+        "data": {
+          "enable_websocket": "WebSocket Live-Updates aktivieren",
+          "scan_interval": "REST-Abfrageintervall (Sekunden)"
+        }
+      }
+    }
+  }
+}

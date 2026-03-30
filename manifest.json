@@ -1,0 +1,12 @@
+{
+  "domain": "minjet",
+  "name": "Minjet MH7A-48 Energy Storage",
+  "version": "0.1.0",
+  "documentation": "https://github.com/snoova/minjet-ha",
+  "issue_tracker": "https://github.com/snoova/minjet-ha/issues",
+  "requirements": [],
+  "codeowners": ["@snoova"],
+  "config_flow": true,
+  "iot_class": "cloud_polling",
+  "icon": "icon.png"
+}

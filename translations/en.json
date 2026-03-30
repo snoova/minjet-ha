@@ -1,0 +1,47 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Minjet",
+        "description": "Enter your Minjet account credentials. WebSocket enables faster live updates, but may interfere with the official app in some cases.",
+        "data": {
+          "username": "Username",
+          "password": "Password",
+          "enable_websocket": "Enable WebSocket live updates",
+          "scan_interval": "REST poll interval (seconds)"
+        }
+      },
+      "reconfigure": {
+        "title": "Reconfigure Minjet",
+        "description": "Update your Minjet account credentials or WebSocket preference.",
+        "data": {
+          "username": "Username",
+          "password": "Password",
+          "enable_websocket": "Enable WebSocket live updates",
+          "scan_interval": "REST poll interval (seconds)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid authentication",
+      "cannot_connect": "Failed to connect",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "This account is already configured",
+      "reconfigure_successful": "Reconfiguration was successful"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Minjet options",
+        "description": "Adjust live update behavior.",
+        "data": {
+          "enable_websocket": "Enable WebSocket live updates",
+          "scan_interval": "REST poll interval (seconds)"
+        }
+      }
+    }
+  }
+}
