@@ -7,6 +7,7 @@ import logging
 import random
 
 import aiohttp
+from .const import WSS_ENDPOINT
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -55,7 +56,7 @@ class MinjetWebSocketClient:
         while self._running:
             connected = False
             try:
-                url = f"wss://app.minjet-energy.com/ws/device?token={self._token}"
+                url = WSS_ENDPOINT.format(token=self._token)
                 _LOGGER.debug("Minjet WSS connecting...")
 
                 async with self._session.ws_connect(url) as ws:

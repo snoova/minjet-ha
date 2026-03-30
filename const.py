@@ -4,6 +4,10 @@ API_BASE = "https://app.minjet-energy.com/prod-api"
 LOGIN_ENDPOINT = f"{API_BASE}/login"
 DEVICE_LIST_ENDPOINT = f"{API_BASE}/device/queryUserDeviceList"
 
+WSS_BASE = "wss://app.minjet-energy.com"
+WSS_ENDPOINT = f"{WSS_BASE}/ws/device?token={{token}}"
+
+
 CONF_USERNAME = "username"
 CONF_PASSWORD = "password"
 CONF_ENABLE_WEBSOCKET = "enable_websocket"
