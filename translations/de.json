@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Minjet verbinden",
-        "description": "Geben Sie Ihre Minjet-Zugangsdaten ein. Die WebSocket-Verbindung ermoeglicht schnellere Live-Daten, kann jedoch mit der offiziellen App interferieren.",
+        "description": "Geben Sie Ihre Minjet-Zugangsdaten ein. Die WebSocket-Verbindung ermöglicht schnellere Live-Daten, kann jedoch mit der offiziellen App interferieren.",
         "data": {
           "username": "Benutzername",
           "password": "Passwort",
@@ -23,7 +23,7 @@
       }
     },
     "error": {
-      "invalid_auth": "Ungueltige Zugangsdaten",
+      "invalid_auth": "Ungültige Zugangsdaten",
       "cannot_connect": "Verbindung fehlgeschlagen",
       "unknown": "Unerwarteter Fehler"
     },
@@ -36,7 +36,7 @@
     "step": {
       "init": {
         "title": "Minjet Optionen",
-        "description": "Einstellungen fuer Live-Daten anpassen.",
+        "description": "Einstellungen für Live-Daten anpassen.",
         "data": {
           "enable_websocket": "WebSocket Live-Updates aktivieren",
           "scan_interval": "REST-Abfrageintervall (Sekunden)"

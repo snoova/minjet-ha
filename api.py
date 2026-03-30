@@ -32,7 +32,7 @@ class MinjetApi:
             "password": self._password,
         }
 
-        _LOGGER.warning("Minjet login request starting for user: %s", self._username)
+        _LOGGER.debug("Minjet login request starting for user: %s", self._username)
 
         async with self._session.post(
             LOGIN_ENDPOINT,
@@ -41,7 +41,7 @@ class MinjetApi:
         ) as resp:
             text = await resp.text()
 
-        _LOGGER.warning("Minjet login response status=%s body=%s", resp.status, text)
+        _LOGGER.debug("Minjet login response status=%s body=%s", resp.status, text)
 
         try:
             data = json.loads(text)
@@ -53,7 +53,7 @@ class MinjetApi:
             raise MinjetAuthError(f"Login failed: {data}")
 
         self._token = token.strip()
-        _LOGGER.warning("Minjet token acquired, length=%s", len(self._token))
+        _LOGGER.debug("Minjet token acquired, length=%s", len(self._token))
         return self._token
 
     async def async_get_devices(self) -> list[dict[str, Any]]:
@@ -67,7 +67,7 @@ class MinjetApi:
             "Authorization": f"Bearer {self._token}",
         }
 
-        _LOGGER.warning("Minjet device query starting with GET")
+        _LOGGER.debug("Minjet device query starting with GET")
 
         async with self._session.get(
             DEVICE_LIST_ENDPOINT,
@@ -76,7 +76,7 @@ class MinjetApi:
         ) as resp:
             text = await resp.text()
 
-        _LOGGER.warning("Minjet device query response status=%s body=%s", resp.status, text)
+        _LOGGER.debug("Minjet device query response status=%s body=%s", resp.status, text)
 
         try:
             data = json.loads(text)

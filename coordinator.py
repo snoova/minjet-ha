@@ -21,7 +21,11 @@ class MinjetCoordinator(DataUpdateCoordinator):
         enable_websocket: bool = False,
         scan_interval: int = DEFAULT_SCAN_INTERVAL,
     ):
-        scan_interval = max(MIN_SCAN_INTERVAL, int(scan_interval))
+        try:
+            scan_interval = int(scan_interval)
+        except (TypeError, ValueError):
+            scan_interval = DEFAULT_SCAN_INTERVAL
+        scan_interval = max(MIN_SCAN_INTERVAL, scan_interval)
         super().__init__(
             hass,
             _LOGGER,
@@ -50,7 +54,7 @@ class MinjetCoordinator(DataUpdateCoordinator):
         try:
             token = self.api._token
             if not token:
-                _LOGGER.warning("No token for WSS")
+                _LOGGER.debug("No token for WSS")
                 return
 
             session = self.api._session

@@ -56,11 +56,11 @@ class MinjetWebSocketClient:
             connected = False
             try:
                 url = f"wss://app.minjet-energy.com/ws/device?token={self._token}"
-                _LOGGER.info("Minjet WSS connecting...")
+                _LOGGER.debug("Minjet WSS connecting...")
 
                 async with self._session.ws_connect(url) as ws:
                     self._ws = ws
-                    _LOGGER.info("Minjet WSS connected")
+                    _LOGGER.debug("Minjet WSS connected")
                     connected = True
 
                     retry = 0
