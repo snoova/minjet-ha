@@ -52,12 +52,15 @@ class MinjetCoordinator(DataUpdateCoordinator):
 
     async def _start_websocket(self):
         try:
-            token = self.api._token
+            if self._ws_client:
+                return
+
+            token = self.api.token
             if not token:
                 _LOGGER.debug("No token for WSS")
                 return
 
-            session = self.api._session
+            session = self.api.session
 
             self._ws_client = MinjetWebSocketClient(
                 session=session,
@@ -71,6 +74,17 @@ class MinjetCoordinator(DataUpdateCoordinator):
 
         except Exception as e:
             _LOGGER.error("Failed to start WSS: %s", e)
+
+    async def _stop_websocket(self):
+        if self._ws_client:
+            await self._ws_client.stop()
+            self._ws_client = None
+        self._wss_connected = False
+        self._last_update_source = "rest"
+
+    async def _restart_websocket(self):
+        await self._stop_websocket()
+        await self._start_websocket()
 
     async def _handle_wss_connected(self):
         self._wss_connected = True
@@ -95,11 +109,19 @@ class MinjetCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self):
         try:
+            ws_restarted_for_token = False
+            if self._enable_websocket and self._ws_client and self.api.token_needs_refresh():
+                _LOGGER.debug("Token exceeded refresh interval; reconnecting WebSocket with fresh token")
+                await self._stop_websocket()
+                await self.api.async_refresh_token(force_refresh=True)
+                await self._start_websocket()
+                ws_restarted_for_token = True
+
+            token_generation_before = self.api.token_generation
             devices = await self.api.async_get_devices()
             device = devices[0] if devices else {}
             device_offline = not bool(device) or device.get("properties") is None
-            if self._ws_client and self.api._token:
-                self._ws_client.set_token(self.api._token)
+            token_was_refreshed = self.api.token_generation != token_generation_before
 
             if device_offline:
                 _LOGGER.debug("Device offline detected")
@@ -111,6 +133,15 @@ class MinjetCoordinator(DataUpdateCoordinator):
             if not self._rest_data:
                 _LOGGER.debug("First load: accepting offline device as base data")
                 self._rest_data = device
+
+            if self._enable_websocket:
+                if token_was_refreshed and self._ws_client and not ws_restarted_for_token:
+                    _LOGGER.debug("Token refreshed during REST update; reconnecting WebSocket")
+                    await self._restart_websocket()
+                elif not self._ws_client:
+                    await self._start_websocket()
+                elif self.api.token:
+                    self._ws_client.set_token(self.api.token)
 
             return self._merge_data(device_offline)
 
